@@ -1,4 +1,4 @@
-# BCBI2017 Metapackage
+# BCBI Metapackage
 This package is a collection of Julia packages used by the Brown University Center for Biomedical Informatics (BCBI). The package serves as a mechanism for installing the various Julia packages most frequently used at BCBI.
 
 ## Installation
