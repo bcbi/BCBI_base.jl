@@ -1,0 +1,22 @@
+julia 0.5
+DataFrames
+MySQL
+RCall
+ScikitLearn
+GLM
+DataTables
+Requests
+BioMedQuery
+DecisionTree
+Lasso
+Gadfly
+PyPlot
+GLMNet
+PlotlyJS
+MixedModels
+HypothesisTests
+TextAnalysis
+TopicModelsVB
+Clustering
+Plots
+StatsBase
