@@ -3,7 +3,7 @@ This package is a collection of Julia packages used by the Brown University Cent
 
 ## Installation
 ```julia
-Pkg.clone("http://github.com/bcbi/bcbi2017.git")
+Pkg.clone("http://github.com/bcbi/BCBI2017.jl.git")
 ```
 
 ## Other Dependencies
