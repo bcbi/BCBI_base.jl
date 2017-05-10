@@ -1,22 +1,22 @@
 julia 0.5
-DataFrames
-MySQL
-RCall
-ScikitLearn
-GLM
-DataTables
-Requests
-BioMedQuery
-DecisionTree
-Lasso
-Gadfly
-PyPlot
-GLMNet
-PlotlyJS
-MixedModels
-HypothesisTests
-TextAnalysis
-TopicModelsVB
-Clustering
-Plots
-StatsBase
+DataFrames 0.9
+MySQL 0.1
+RCall 0.7
+ScikitLearn 0.3
+GLM 0.7
+DataTables 0.0.3
+Requests 0.4
+BioMedQuery 0.2.2
+DecisionTree 0.6
+Lasso 0.1
+Gadfly 0.6
+PyPlot 2.3
+GLMNet 0.2
+PlotlyJS 0.6
+Plots 0.10
+MixedModels 0.8
+HypothesisTests 0.5
+TextAnalysis 0.1
+TopicModelsVB 0.0.1
+Clustering 0.8
+StatsBase 0.14
