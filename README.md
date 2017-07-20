@@ -3,7 +3,7 @@ This package is a collection of Julia packages used by the Brown Center for Biom
 
 ## Installation
 ```julia
-Pkg.clone("http://github.com/bcbi/BCBI_base.jl.git")
+Pkg.clone("https://github.com/bcbi/BCBI_base.jl.git")
 ```
 
 ## Other Dependencies
