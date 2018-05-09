@@ -1,7 +1,8 @@
 module BCBI_base
 
 
-export add_and_precompile
+export install_registered,
+       install_unregistered
 
 const registered_pkgs = [   "MySQL",
                             "StatsBase",
@@ -37,7 +38,7 @@ const unregistered_pkgs =[ "https://github.com/bcbi/ClassImbalance.jl.git",
                            "https://github.com/bcbi/ARules.jl"]
 
 
-function install_regitered()
+function install_registered()
 
     failed_pkgs = Vector{String}()
 
@@ -74,7 +75,7 @@ function install_regitered()
     println("--------------------------------")
 end
 
-function install_unregitered()
+function install_unregistered()
 
     failed_pkgs = Vector{String}()
 
