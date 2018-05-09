@@ -27,11 +27,11 @@ const registered_pkgs = [   "MySQL",
                             "LightXML",
                             "RCall",
                             "PyCall",
-                            "ScikitLearn",
-                            "Gadfly",
-                            "PyPlot",
-                            "Seaborn",
-                            "Pandas",
+                            # "ScikitLearn", downgrades deps
+                            # "Gadfly",
+                            # "PyPlot",
+                            # "Seaborn",
+                            # "Pandas",
                             "Revise"]
 
 const unregistered_pkgs =[ "https://github.com/bcbi/ClassImbalance.jl.git",
@@ -39,6 +39,8 @@ const unregistered_pkgs =[ "https://github.com/bcbi/ClassImbalance.jl.git",
 
 
 function install_registered()
+
+    Pkg.update()
 
     failed_pkgs = Vector{String}()
 
