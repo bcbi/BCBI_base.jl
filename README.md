@@ -1,5 +1,9 @@
-# BCBI Metapackage
-This package is a collection of Julia packages used by the Brown Center for Biomedical Informatics (BCBI). The package serves as a mechanism for installing the various Julia packages most frequently used at BCBI.
+# BCBI Metapackage BCBI_v0.0.1
+This package is a collection of Julia packages used by the Brown Center for Biomedical Informatics (BCBI) inside the Ursa Stronghold environment. The package serves as a mechanism for installing the various Julia packages most frequently used at BCBI.
+
+### About Ursa Environment:
+* Version: bcbi_v0.0.1
+* To activate" `module load conda/bcbi_v0.0.1`
 
 ## Installation
 ```julia
@@ -13,5 +17,4 @@ Pkg.clone("https://github.com/bcbi/BCBI_base.jl.git")
 
 * The ScikitLearn.jl package requires a working version of Python and the Scikit-Learn package for Python. The Anaconda distribution of Python is recommended, which can be obtained [here](https://www.continuum.io/downloads).
 
-
-     
+## Unresgi
