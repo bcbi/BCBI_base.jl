@@ -75,7 +75,7 @@ function add_registered()
     end
 
     println("--------------------------------")
-    println("Failed packages: ", length(failed_pkgs)
+    println("Failed packages: ", length(failed_pkgs))
     map(x->println(x), failed_pkgs)
     println("--------------------------------")
 end
@@ -110,7 +110,7 @@ function clone_unregistered()
     end
 
     println("--------------------------------")
-    println("Failed packages: ", length(failed_pkgs)
+    println("Failed packages: ", length(failed_pkgs))
     map(x->println(x), failed_pkgs)
     println("--------------------------------")
 end
@@ -138,7 +138,7 @@ function checkout_branch()
     end
 
     println("--------------------------------")
-    println("Failed packages: ", length(failed_pkgs)
+    println("Failed packages: ", length(failed_pkgs))
     map(x->println(x), failed_pkgs)
     println("--------------------------------")
 end
