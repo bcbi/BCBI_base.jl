@@ -41,7 +41,7 @@ const dirty_pkgs = Dict("ScikitLearn" => "master",
                         "Gadfly" => "master")
 
 
-function add_registered(pkg = BCBI_base.registered_pkgs)
+function add_registered(pkgs = BCBI_base.registered_pkgs)
 
     Pkg.update()
 
