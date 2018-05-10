@@ -75,7 +75,7 @@ function add_registered()
     end
 
     println("--------------------------------")
-    println("Failed packages: ")
+    println("Failed packages: ", length(failed_pkgs)
     map(x->println(x), failed_pkgs)
     println("--------------------------------")
 end
@@ -110,7 +110,7 @@ function clone_unregistered()
     end
 
     println("--------------------------------")
-    println("Failed packages: ")
+    println("Failed packages: ", length(failed_pkgs)
     map(x->println(x), failed_pkgs)
     println("--------------------------------")
 end
@@ -122,7 +122,10 @@ function checkout_branch()
         println("--------------------------------")
         println("Package: ", pkg)
         println("--------------------------------")
+        println("* Add and checkout ", branch)
+        Pkg.add(pkg)
         Pkg.checkout(pkg, branch)
+
         try
             println("* Using")
             pkgsym = Symbol(pkg)
@@ -135,7 +138,7 @@ function checkout_branch()
     end
 
     println("--------------------------------")
-    println("Failed packages: ")
+    println("Failed packages: ", length(failed_pkgs)
     map(x->println(x), failed_pkgs)
     println("--------------------------------")
 end
