@@ -1,6 +1,6 @@
 # BCBI Metapackage BCBI_v0.0.1
 
-| Travis CI | Coverage | License | 
+| Travis CI | Coverage | License |
 |-----------|----------|---------|
 |[![Build Status](https://travis-ci.org/bcbi/BCBI_base.jl.svg?branch=bcbi_v0.0.1)](https://travis-ci.org/bcbi/BCBI_base.jl)|[![codecov.io](http://codecov.io/github/bcbi/BCBI_base.jl/coverage.svg?branch=bcbi_v0.0.1)](http://codecov.io/githubbcbi/BCBI_base.jl?branch=bcbi_v0.0.1)|[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/bcbi/BCBI_base.jl/bcbi_v0.0.1/LICENSE.md)|
 
@@ -27,15 +27,16 @@ add_registered()
 clone_unregistered()
 ```
 
-## Informatio
+## Information
 
-To print the list of registered or unregistered packages:
+To print the list of packages installed by this version:
 
 
 ```julia
 using BCBI_base
 println(BCBI_base.registered_pkgs)
 println(BCBI_base.unregistered_pkgs)
+println(BCBI_base.dirty_pkgs)
 ```
 
 ## Other Dependencies
@@ -45,3 +46,7 @@ println(BCBI_base.unregistered_pkgs)
 
 * The ScikitLearn.jl package requires a working version of Python and the Scikit-Learn package for Python. The Anaconda distribution of Python is recommended, which can be obtained [here](https://www.continuum.io/downloads).
 
+## Checkedout packages
+
+* ScikitLearn - latest tag v0.4.0, caps DataFrames to version v0.10.1.
+* Gadfly - latest tag v0.6.5, caps DataFrames to version < v0.11

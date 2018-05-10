@@ -91,10 +91,9 @@ function clone_unregistered()
 
 
         try
-            println("* Clonning")
-            pkgsym = Symbol(pkg)
-            eval(:(Pkg.$pkgsym))
+            Pkg.installed(pkg)
         catch
+            println("* Clonning")
             Pkg.clone(url)
         end
 
