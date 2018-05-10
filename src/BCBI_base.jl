@@ -15,7 +15,6 @@ const registered_pkgs = [   "MySQL",
                             "GLM",
                             "GLMNet",
                             "HypothesisTests",
-                            # "LowRankModels", downgrades deps
                             "Lasso",
                             "MixedModels",
                             "JuliaDB",
@@ -26,7 +25,7 @@ const registered_pkgs = [   "MySQL",
                             "JLD2",
                             "EzXML",
                             "LightXML",
-                            # "RCall", /libR.so appears to be too old. RCall.jl requires R 3.4.0 or later.
+                            "RCall",
                             "PyCall",
                             "PyPlot", #get WARNING: No working GUI backend found for matplotlib
                             "Seaborn",
@@ -151,7 +150,7 @@ function checkout_branch()
 end
 
 function install_all()
-    checkout_branch()
+    # checkout_branch()
     add_registered()
     clone_unregistered()
 end
