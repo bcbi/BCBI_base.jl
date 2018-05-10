@@ -22,9 +22,9 @@ Pkg.checkout("BCBI_base", "bcbi_v0.0.1")
 ```julia
 using BCBI_base
 # Install list of registered packages
-install_registered()
+add()
 # Install list of unregistered packages
-install_unregistered()
+clone()
 ```
 
 ## Informatio

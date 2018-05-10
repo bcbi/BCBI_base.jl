@@ -1,10 +1,5 @@
 module BCBI_base
 
-
-export install_registered,
-       install_unregistered,
-       install_checkedout
-
 const registered_pkgs = [   "MySQL",
                             "StatsBase",
                             "DataFrames",
@@ -26,9 +21,8 @@ const registered_pkgs = [   "MySQL",
                             "JLD2",
                             "EzXML",
                             "LightXML",
-                            "RCall",
+                            # "RCall", /libR.so appears to be too old. RCall.jl requires R 3.4.0 or later.
                             "PyCall",
-                            # "Gadfly", downgrades deps
                             "PyPlot", #get WARNING: No working GUI backend found for matplotlib
                             "Seaborn",
                             "Pandas",
@@ -39,9 +33,10 @@ const unregistered_pkgs =[ "https://github.com/bcbi/ClassImbalance.jl.git",
                            "https://github.com/bcbi/ARules.jl"]
 
 
-const dirty_pkgs = Dict("ScikitLearn" => "master")
+const dirty_pkgs = Dict("ScikitLearn" => "master",
+                        "Gadfly" => "master")
 
-function install_registered()
+function add()
 
     Pkg.update()
 
@@ -80,7 +75,7 @@ function install_registered()
     println("--------------------------------")
 end
 
-function install_unregistered()
+function clone()
 
     failed_pkgs = Vector{String}()
 
@@ -117,7 +112,7 @@ function install_unregistered()
     println("--------------------------------")
 end
 
-function install_checkedout()
+function checkout()
     failed_pkgs = Vector{String}()
 
     for (pkg, branch) in dirty_pkgs
@@ -142,5 +137,10 @@ function install_checkedout()
     println("--------------------------------")
 end
 
+function install_all()
+    add()
+    clone()
+    checkout()
+end
 
 end
