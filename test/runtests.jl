@@ -2,7 +2,7 @@ using Base.Test
 using BCBI_base
 
 @testset "Registered" begin
-    BCBI_base.add()
+    BCBI_base.add_registered()
     failed_pkgs = Vector{String}()
 
     for pkg in BCBI_base.registered_pkgs
@@ -27,7 +27,7 @@ using BCBI_base
 end
 
 @testset "Unregistered" begin
-    BCBI_base.clone()
+    BCBI_base.clone_unregistered()
     failed_pkgs = Vector{String}()
 
     for pkg in BCBI_base.unregistered_pkgs
@@ -52,7 +52,7 @@ end
 end
 
 @testset "Checkedout" begin
-    BCBI_base.checkout()
+    BCBI_base.checkout_branch()
     failed_pkgs = Vector{String}()
 
     for pkg in BCBI_base.registered_pkgs

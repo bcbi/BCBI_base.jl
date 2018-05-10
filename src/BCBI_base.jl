@@ -1,5 +1,10 @@
 module BCBI_base
 
+export install_all,
+       add_registered,
+       clone_unregistered,
+       checkout_branch
+
 const registered_pkgs = [   "MySQL",
                             "StatsBase",
                             "DataFrames",
@@ -29,14 +34,14 @@ const registered_pkgs = [   "MySQL",
                             "Revise",
                             "IJulia"]
 
-const unregistered_pkgs =[ "https://github.com/bcbi/ClassImbalance.jl.git",
-                           "https://github.com/bcbi/ARules.jl"]
+const unregistered_pkgs =Dict( "ClassImbalance"=>"https://github.com/bcbi/ClassImbalance.jl.git",
+                                "ARules"=>"https://github.com/bcbi/ARules.jl")
 
 
 const dirty_pkgs = Dict("ScikitLearn" => "master",
                         "Gadfly" => "master")
 
-function add()
+function add_registered()
 
     Pkg.update()
 
@@ -75,11 +80,11 @@ function add()
     println("--------------------------------")
 end
 
-function clone()
+function clone_unregistered()
 
     failed_pkgs = Vector{String}()
 
-    for pkg in unregistered_pkgs
+    for (pkg, url) in unregistered_pkgs
         println("--------------------------------")
         println("Package: ", pkg)
         println("--------------------------------")
@@ -87,7 +92,7 @@ function clone()
 
         try
             println("* Clonning")
-            Pkg.clone(pkg)
+            Pkg.clone(url)
         catch
             warn("Pkg.clone failed")
             push!(failed_pkgs, pkg)
@@ -112,7 +117,7 @@ function clone()
     println("--------------------------------")
 end
 
-function checkout()
+function checkout_branch()
     failed_pkgs = Vector{String}()
 
     for (pkg, branch) in dirty_pkgs
@@ -138,9 +143,9 @@ function checkout()
 end
 
 function install_all()
-    add()
-    clone()
-    checkout()
+    add_registered()
+    clone_unregistered()
+    checkout_branch()
 end
 
 end
