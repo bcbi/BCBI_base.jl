@@ -91,7 +91,11 @@ function clone_unregistered(pkgs = BCBI_base.unregistered_pkgs)
 
 
         try
-            Pkg.installed(pkg)
+            v = Pkg.installed(pkg)
+            if typeof(v) != VersionNumber
+                println("* Clonning")
+                Pkg.clone(url)
+            end
         catch
             println("* Clonning")
             Pkg.clone(url)
