@@ -92,11 +92,10 @@ function clone_unregistered()
 
         try
             println("* Clonning")
-            Pkg.clone(url)
+            pkgsym = Symbol(pkg)
+            eval(:(Pkg.$pkgsym))
         catch
-            warn("Pkg.clone failed")
-            push!(failed_pkgs, pkg)
-            continue
+            Pkg.clone(url)
         end
 
         try
@@ -124,7 +123,7 @@ function checkout_branch()
         println("--------------------------------")
         println("Package: ", pkg)
         println("--------------------------------")
-        Pkg.clone(pkg, branch)
+        Pkg.checkout(pkg, branch)
         try
             println("* Using")
             pkgsym = Symbol(pkg)
