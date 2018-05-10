@@ -124,7 +124,6 @@ function checkout_branch()
         println("--------------------------------")
         println("* Add ")
         Pkg.add(pkg)
-
     end
 
     for (pkg, branch) in dirty_pkgs
