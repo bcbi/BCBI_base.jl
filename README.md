@@ -17,14 +17,63 @@ Pkg.clone("https://github.com/bcbi/BCBI_base.jl.git")
 Pkg.checkout("BCBI_base", "bcbi_v0.0.1")
 ```
 
-## Usage
+## How it was used
+
+In Julia's REPL
+```julia
+using BCBI_base
+
+Pkg.add("ScikitLearn")
+Pkg.add("Gadfly")
+
+quit()
+````
+
+In terminal
+```bash
+cd $JULIA_PKGDIR/v0.6
+cd ScikitLearn
+git checkout master
+cd ..
+cd Gadfly
+git checkout master
+```
+
+In Julia's REPL
 
 ```julia
 using BCBI_base
-# Install list of registered packages
+
+install_all(dirty = Dict())
+check_installed()
+````
+
+## General Usage
+
+* Install all packages
+```julia
+install_all()
+````
+
+* Install list of registered packages
+```julia
 add_registered()
-# Install list of unregistered packages
+```
+
+* Install list of unregistered packages
+```
 clone_unregistered()
+```
+
+* Checkout
+```
+checkout_special()
+```
+
+* Missing "desired" packages
+
+```
+check_installed()
 ```
 
 ## List of packages
@@ -88,5 +137,3 @@ println(BCBI_base.dirty_pkgs)
 * The RCall.jl package depends on a working installation of R, which can be obtained [here](https://www.r-project.org/). MacOS users may opt to use [Homebrew](https://brew.sh/) for ease of installation.
 
 * The ScikitLearn.jl package requires a working version of Python and the Scikit-Learn package for Python. The Anaconda distribution of Python is recommended, which can be obtained [here](https://www.continuum.io/downloads).
-
-## Checkedout packages
