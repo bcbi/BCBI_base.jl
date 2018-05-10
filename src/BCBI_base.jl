@@ -3,7 +3,8 @@ module BCBI_base
 export install_all,
        add_registered,
        clone_unregistered,
-       checkout_special
+       checkout_special,
+       check_installed
 
 const registered_pkgs = [   "MySQL",
                             "StatsBase",
@@ -157,6 +158,15 @@ end
 function install_all()
     add_registered()
     clone_unregistered()
+end
+
+function check_installed()
+    desired = vcat(registered_pkgs, collect(keys(unregistered_pkgs)), collect(keys(dirty_pkgs)))
+    installed = collect(keys(Pkg.installed()))
+    println("--------------------------------")
+    println("Missing desired packages:")
+    println("--------------------------------")
+    println(setdiff(desired, installed))
 end
 
 end
