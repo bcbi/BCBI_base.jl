@@ -52,7 +52,7 @@ end
 end
 
 @testset "Checkedout" begin
-    BCBI_base.checkout_branch()
+    BCBI_base.checkout_special()
     failed_pkgs = Vector{String}()
 
     for pkg in BCBI_base.registered_pkgs

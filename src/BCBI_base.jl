@@ -3,7 +3,7 @@ module BCBI_base
 export install_all,
        add_registered,
        clone_unregistered,
-       checkout_branch
+       checkout_special
 
 const registered_pkgs = [   "MySQL",
                             "StatsBase",
@@ -40,13 +40,14 @@ const unregistered_pkgs =Dict( "ClassImbalance"=>"https://github.com/bcbi/ClassI
 const dirty_pkgs = Dict("ScikitLearn" => "master",
                         "Gadfly" => "master")
 
-function add_registered()
+
+function add_registered(pkg = BCBI_base.registered_pkgs)
 
     Pkg.update()
 
     failed_pkgs = Vector{String}()
 
-    for pkg in registered_pkgs
+    for pkg in pkgs
         println("--------------------------------")
         println("Package: ", pkg)
         println("--------------------------------")
@@ -79,11 +80,11 @@ function add_registered()
     println("--------------------------------")
 end
 
-function clone_unregistered()
+function clone_unregistered(pkgs = BCBI_base.unregistered_pkgs)
 
     failed_pkgs = Vector{String}()
 
-    for (pkg, url) in unregistered_pkgs
+    for (pkg, url) in pkgs
         println("--------------------------------")
         println("Package: ", pkg)
         println("--------------------------------")
@@ -114,10 +115,10 @@ function clone_unregistered()
     println("--------------------------------")
 end
 
-function checkout_branch()
+function checkout_special(pkgs = Dict())
     failed_pkgs = Vector{String}()
 
-    for (pkg, branch) in dirty_pkgs
+    for (pkg, branch) in pkgs
         println("--------------------------------")
         println("Package: ", pkg)
         println("--------------------------------")
@@ -125,7 +126,7 @@ function checkout_branch()
         Pkg.add(pkg)
     end
 
-    for (pkg, branch) in dirty_pkgs
+    for (pkg, branch) in pkgs
         println("--------------------------------")
         println("Package: ", pkg)
         println("--------------------------------")
@@ -150,7 +151,6 @@ function checkout_branch()
 end
 
 function install_all()
-    # checkout_branch()
     add_registered()
     clone_unregistered()
 end
