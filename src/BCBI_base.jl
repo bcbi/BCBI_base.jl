@@ -122,8 +122,16 @@ function checkout_branch()
         println("--------------------------------")
         println("Package: ", pkg)
         println("--------------------------------")
-        println("* Add and checkout ", branch)
+        println("* Add ")
         Pkg.add(pkg)
+
+    end
+
+    for (pkg, branch) in dirty_pkgs
+        println("--------------------------------")
+        println("Package: ", pkg)
+        println("--------------------------------")
+        println("* Checkout ", branch)
         Pkg.checkout(pkg, branch)
 
         try
@@ -144,9 +152,9 @@ function checkout_branch()
 end
 
 function install_all()
+    checkout_branch()
     add_registered()
     clone_unregistered()
-    checkout_branch()
 end
 
 end
