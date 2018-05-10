@@ -50,7 +50,7 @@ end
 
     @test length(failed_pkgs) == 0
 end
-
+warn("Not running tests on checkout_special()")
 # @testset "Checkedout" begin
 #     checkout_special(Dict())
 #     failed_pkgs = Vector{String}()
