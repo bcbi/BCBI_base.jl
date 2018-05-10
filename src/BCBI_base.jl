@@ -41,7 +41,11 @@ const unregistered_pkgs =Dict( "ClassImbalance"=>"https://github.com/bcbi/ClassI
 const dirty_pkgs = Dict("ScikitLearn" => "master",
                         "Gadfly" => "master")
 
+"""
+    add_registered(pkgs = BCBI_base.registered_pkgs)
 
+Call `Pkg.add` and `using` on list of desired packages
+"""
 function add_registered(pkgs = BCBI_base.registered_pkgs)
 
     Pkg.update()
@@ -81,6 +85,11 @@ function add_registered(pkgs = BCBI_base.registered_pkgs)
     println("--------------------------------")
 end
 
+"""
+    clone_unregistered(pkgs = BCBI_base.unregistered_pkgs)
+
+Call `Pkg.clone` and `using` on `Dict("name"->"url")` of desired packages
+"""
 function clone_unregistered(pkgs = BCBI_base.unregistered_pkgs)
 
     failed_pkgs = Vector{String}()
@@ -120,7 +129,12 @@ function clone_unregistered(pkgs = BCBI_base.unregistered_pkgs)
     println("--------------------------------")
 end
 
-function checkout_special(pkgs = Dict())
+"""
+    checkout_special(pkgs = Dict())
+
+Call `Pkg.add`, `Pkg.checkout` and `using` on `Dict("name"->"branch")` of desired packages
+"""
+function checkout_special(pkgs = BCBI_base.dirty_pkgs)
     failed_pkgs = Vector{String}()
 
     for (pkg, branch) in pkgs
@@ -155,18 +169,29 @@ function checkout_special(pkgs = Dict())
     println("--------------------------------")
 end
 
-function install_all()
-    add_registered()
-    clone_unregistered()
+"""
+    install_all()
+Run checkout/add/clone functions
+"""
+function install_all(;reg = registered_pkgs, unreg = unregistered_pkgs, dirty = dirty_pkgs)
+    checkout_special(dirty)
+    add_registered(reg)
+    clone_unregistered(unreg)
 end
 
+"""
+    check_installed()
+Print and return list of missing "desired" packages
+"""
 function check_installed()
     desired = vcat(registered_pkgs, collect(keys(unregistered_pkgs)), collect(keys(dirty_pkgs)))
     installed = collect(keys(Pkg.installed()))
     println("--------------------------------")
     println("Missing desired packages:")
     println("--------------------------------")
-    println(setdiff(desired, installed))
+    miss_pkgs = setdiff(desired, installed)
+    println(miss_pkgs)
+    miss_pkgs
 end
 
 end
