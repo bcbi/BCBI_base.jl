@@ -51,28 +51,32 @@ check_installed()
 ## General Usage
 
 * Install all packages
+
 ```julia
 install_all()
 ````
 
 * Install list of registered packages
+
 ```julia
 add_registered()
 ```
 
 * Install list of unregistered packages
-```
+
+```julia
 clone_unregistered()
 ```
 
 * Checkout
-```
+
+```julia
 checkout_special()
 ```
 
 * Missing "desired" packages
 
-```
+```julia
 check_installed()
 ```
 
@@ -101,12 +105,12 @@ check_installed()
 |EzXML|||
 |LightXML|||
 |RCall|||
-"PyCall|||
-|PyPlot"|||
+|PyCall|||
+|PyPlot|||
 |Seaborn|||
 |Pandas|||
 |Revise|||
-|IJulia"|||
+|IJulia|||
 
 To print the list of packages installed by this version:
 
