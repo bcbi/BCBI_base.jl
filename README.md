@@ -64,19 +64,19 @@ add_registered()
 
 * Install list of unregistered packages
 
-```
+```julia
 clone_unregistered()
 ```
 
 * Checkout
 
-```
+```julia
 checkout_special()
 ```
 
 * Missing "desired" packages
 
-```
+```julia
 check_installed()
 ```
 
