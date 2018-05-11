@@ -106,7 +106,7 @@ check_installed()
 |LightXML|||
 |RCall|||
 |PyCall|||
-|PyPlot"|||
+|PyPlot|||
 |Seaborn|||
 |Pandas|||
 |Revise|||
