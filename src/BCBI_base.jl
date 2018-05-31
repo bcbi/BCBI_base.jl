@@ -32,10 +32,10 @@ const registered_pkgs = [   "MySQL",
                             "Seaborn",
                             "Pandas",
                             "Revise",
-                            "IJulia"]
+                            "IJulia",
+                            "ClassImbalance"]
 
-const unregistered_pkgs =Dict( "ClassImbalance"=>"https://github.com/bcbi/ClassImbalance.jl.git",
-                                "ARules"=>"https://github.com/bcbi/ARules.jl")
+const unregistered_pkgs =Dict("ARules"=>"https://github.com/bcbi/ARules.jl")
 
 
 const dirty_pkgs = Dict("ScikitLearn" => "master",
