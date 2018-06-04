@@ -55,15 +55,15 @@ Pkg.add("Rmath")
 ```bash
 make -C $(JULIA_PKGDIR)/v0.6/Rmath/deps/src/Rmath-julia-0.2.0/ CFLAGS=-v 
 ```
-:exclamation: Rmath is needed by Gadfly and thus we pre-installed it to apply fix
 
 Rmath was then rebuilt in julia
 
 ```julia
 Pkg.build("Rmath")
 ````
+:exclamation: Rmath is needed by Gadfly and thus it was pre-installed to apply the fix
 
-In Julia's REPL
+Back to Julia's REPL
 
 ```julia
 using BCBI_base
