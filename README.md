@@ -1,50 +1,74 @@
-# BCBI Metapackage BCBI_v0.0.1
+# BCBI Metapackage bcbi_v0.0.0
 
 | Travis CI | Coverage | License |
 |-----------|----------|---------|
-|[![Build Status](https://travis-ci.org/bcbi/BCBI_base.jl.svg?branch=bcbi_v0.0.1)](https://travis-ci.org/bcbi/BCBI_base.jl)|[![codecov.io](http://codecov.io/github/bcbi/BCBI_base.jl/coverage.svg?branch=bcbi_v0.0.1)](http://codecov.io/githubbcbi/BCBI_base.jl?branch=bcbi_v0.0.1)|[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/bcbi/BCBI_base.jl/bcbi_v0.0.1/LICENSE.md)|
+|[![Build Status](https://travis-ci.org/bcbi/BCBI_base.jl.svg?branch=bcbi_v0.0.0)](https://travis-ci.org/bcbi/BCBI_base.jl)|[![codecov.io](http://codecov.io/github/bcbi/BCBI_base.jl/coverage.svg?branch=bcbi_v0.0.0)](http://codecov.io/githubbcbi/BCBI_base.jl?branch=bcbi_v0.0.0)|[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/bcbi/BCBI_base.jl/bcbi_v0.0.0/LICENSE.md)|
 
 This package is a collection of Julia packages used by the Brown Center for Biomedical Informatics (BCBI) inside the Ursa Stronghold environment. The package serves as a mechanism for installing the various Julia packages most frequently used at BCBI.
 
 ## About URSA Environment:
-* Version: bcbi_v0.0.1
-* To activate" `module load conda/bcbi_v0.0.1`
+* Version: bcbi_v0.0.0
+* To activate" `module load conda/bcbi_v0.0.0`
+* [Environment set up details]
 
 ## Installation
 
 ```julia
 Pkg.clone("https://github.com/bcbi/BCBI_base.jl.git")
-Pkg.checkout("BCBI_base", "bcbi_v0.0.1")
+Pkg.checkout("BCBI_base", "bcbi_v0.0.0")
 ```
 
-## How it was used
+## Environment variables
 
-In Julia's REPL
-```julia
-using BCBI_base
+The following environment variables are exepected in the path. Verify that they ar part on `ENV`. 
+If not they can be set up 'environment' wide or included as part of `.juliarc.jl`
 
-Pkg.add("ScikitLearn")
-Pkg.add("Gadfly")
-
-quit()
-````
-
-In terminal
 ```bash
-cd $JULIA_PKGDIR/v0.6
-cd ScikitLearn
-git checkout master
-cd ..
-cd Gadfly
-git checkout master
+export LD_LIBRARY_PATH = /opt/browncis/conda/envs/$CONDA_DEFAULT_ENV/lib
+export JULIA_PKGDIR = /opt/browncis/conda/envs/$CONDA_DEFAULT_ENV/lib/julia/packages
+export PYTHON = /opt/browncis/conda/envs/$CONDA_DEFAULT_ENV/bin/python
+export CONDA_JL_HOME = /opt/browncis/conda/envs/$CONDA_DEFAULT_ENV/lib/julia/packages/v0.6/Conda/deps/usr
 ```
 
+## Workarounds
+
+1. For the following packages `Pkg.add()` didn't work out of the box and requiered workarounds.
+    * Rmath - Problem with gcc flags. Have to call `make` manually
+    * ScikitLearn - Tagged version caps DataFrames
+    * Gadfly - Tagged version caps DataFrames
+    * BioMedQuery - Tagged version uses HTTParse, which is failing
+    * Lasso - Tagged version had dependency conflicts
+
+
+2. PyPlot and Seaborn give:`WARNING: No working GUI backend found for matplotlib`
+
+
+## How it was used in the build server
+
 In Julia's REPL
+```julia
+using BCBI_base
+Pkg.add("Rmath")
+```
+
+:exclamation: Building Rmath failed but was fixed by running:
+```bash
+make -C $(JULIA_PKGDIR)/v0.6/Rmath/deps/src/Rmath-julia-0.2.0/ CFLAGS=-v 
+```
+
+Rmath was then rebuilt in julia
+
+```julia
+Pkg.build("Rmath")
+````
+:exclamation: Rmath is needed by Gadfly and thus it was pre-installed to apply the fix
+
+Back to Julia's REPL
 
 ```julia
 using BCBI_base
 
-install_all(dirty = Dict())
+install_all()
 check_installed()
 ````
 
@@ -59,19 +83,19 @@ install_all()
 * Install list of registered packages
 
 ```julia
-add_registered()
+add()
 ```
 
 * Install list of unregistered packages
 
 ```julia
-clone_unregistered()
+clone()
 ```
 
 * Checkout
 
 ```julia
-checkout_special()
+checkout()
 ```
 
 * Missing "desired" packages
@@ -80,37 +104,43 @@ checkout_special()
 check_installed()
 ```
 
+* Check that all packages precompile
+
+```julia
+using_all()
+```
+
 ## List of packages
 
 | Registered | Unregistered | Checkedout (master) |
 |------------|--------------|---------------------|
-|MySQL|ClassImbalance|ScikitLearn|
-|StatsBase|ARules|Gadfly|
+|BioServices|ARules|BioMedQuery|
+|ClassImbalance||Gadfly|
+|Clustering||Lasso|
+|CSV||ScikitLearn|
 |DataFrames|||
-|CSV|||
-|Query|||
-|Clustering|||
 |DecisionTree|||
+|EzXML|||
 |GLM|||
 |GLMNet|||
-|HypothesisTests|||
-|Lasso|||
-|MixedModels|||
-|JuliaDB|||
 |HTTP|||
-|BioServices|||
-|BioMedQuery|||
+|HypothesisTests|||
+|IJulia|||
 |JLD|||
 |JLD2|||
-|EzXML|||
+|JuliaDB|||
 |LightXML|||
-|RCall|||
+|MixedModels|||
+|MySQL|||
+|Pandas|||
 |PyCall|||
 |PyPlot|||
-|Seaborn|||
-|Pandas|||
+|RCall|||
 |Revise|||
-|IJulia|||
+|Seaborn|||
+|StatsBase|||
+|Query|||
+
 
 To print the list of packages installed by this version:
 
@@ -118,21 +148,9 @@ To print the list of packages installed by this version:
 ```julia
 using BCBI_base
 println(BCBI_base.registered_pkgs)
-println(BCBI_base.unregistered_pkgs)
-println(BCBI_base.dirty_pkgs)
+println(BCBI_base.clone_pkgs)
+println(BCBI_base.checkout_pkgs)
 ```
-
-## Special instances
-
-1. Currently for two packages  needed to be checkedout to their master branch.
-
-    * ScikitLearn - latest tag v0.4.0, caps DataFrames to version v0.10.1.
-    * Gadfly - latest tag v0.6.5, caps DataFrames to version < v0.11
-
-    This process was done manually through terminal/git. Because Pkg.add() and
-    triggers Pkg.resolve() before being able to checkout the master branch  
-
-2. PyPlot and Seaborn give:`WARNING: No working GUI backend found for matplotlib`
 
 
 ## Other Dependencies
@@ -140,4 +158,19 @@ println(BCBI_base.dirty_pkgs)
 
 * The RCall.jl package depends on a working installation of R, which can be obtained [here](https://www.r-project.org/). MacOS users may opt to use [Homebrew](https://brew.sh/) for ease of installation.
 
-* The ScikitLearn.jl package requires a working version of Python and the Scikit-Learn package for Python. The Anaconda distribution of Python is recommended, which can be obtained [here](https://www.continuum.io/downloads).
+* All Python related packages were pointed to the "root environment" Python. Therefore, Scikit-Learn, Seaborn, and others were pre-installed.
+
+
+## How it was used in the work station
+
+```
+module load conda/bcbi_v0.0.0
+julia
+```
+
+```julia
+using BCBI_base
+using_all()
+```
+
+:pray: that it all works
