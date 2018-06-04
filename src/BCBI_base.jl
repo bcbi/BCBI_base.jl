@@ -40,10 +40,10 @@ For registered packages, we perform `Pkg.clone` instead of `Pkg.checkout` as the
 if the lates tagged version cannot be resoved
 """                            
 const clone_pkgs =Dict("ARules"=>"https://github.com/bcbi/ARules.jl",
-                       "ScikitLearn"=>"",
-                       "Gadfly"=>"",
-                       "BioMedQuery"=>"",
-                       "Lasso"=>"")
+                       "ScikitLearn"=>"https://github.com/cstjean/ScikitLearn.jl.git",
+                       "Gadfly"=>"https://github.com/GiovineItalia/Gadfly.jl.git",
+                       "BioMedQuery"=>"https://github.com/bcbi/BioMedQuery.jl.git",
+                       "Lasso"=>"https://github.com/simonster/Lasso.jl.git")
 
 """
     checkout_pkgs
@@ -184,10 +184,10 @@ end
     install_all()
 Run checkout/add/clone functions
 """
-function install_all(;reg = registered_pkgs, unreg = clone_pkgs, dirty = checkout_pkgs)
-    checkout(dirty)
-    add(reg)
-    clone(unreg)
+function install_all()
+    checkout(checkout_pkgs)
+    add(registered_pkgs)
+    clone(clone_pkgs)
 end
 
 """

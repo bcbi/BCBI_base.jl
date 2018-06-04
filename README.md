@@ -23,11 +23,17 @@ Pkg.checkout("BCBI_base", "bcbi_v0.0.0")
 The following environment variables are exepected in the path. Verify that they ar part on `ENV`. 
 If not they can be set up 'environment' wide or included as part of `.juliarc.jl`
 
+```bash
+export LD_LIBRARY_PATH = /opt/browncis/conda/envs/$CONDA_DEFAULT_ENV/lib
+export JULIA_PKGDIR = /opt/browncis/conda/envs/$CONDA_DEFAULT_ENV/lib/julia/packages
+export PYTHON = /opt/browncis/conda/envs/$CONDA_DEFAULT_ENV/bin/python
+export CONDA_JL_HOME = /opt/browncis/conda/envs/$CONDA_DEFAULT_ENV/lib/julia/packages/v0.6/Conda/deps/usr
+```
 
 ## Workarounds
 
 1. For the following packages `Pkg.add()` didn't work out of the box and requiered workarounds.
-    * Rmath - Problem with gcc flags. Have to call make manually
+    * Rmath - Problem with gcc flags. Have to call `make` manually
     * ScikitLearn - Tagged version caps DataFrames
     * Gadfly - Tagged version caps DataFrames
     * BioMedQuery - Tagged version uses HTTParse, which is failing
@@ -35,8 +41,6 @@ If not they can be set up 'environment' wide or included as part of `.juliarc.jl
 
 
 2. PyPlot and Seaborn give:`WARNING: No working GUI backend found for matplotlib`
-
-
 
 
 ## How it was used
@@ -47,44 +51,24 @@ using BCBI_base
 Pkg.add("Rmath")
 ```
 
-:warning: Building Rmath failed but was fixed by running:
+:exclamation: Building Rmath failed but was fixed by running:
 ```bash
 make -C $(JULIA_PKGDIR)/v0.6/Rmath/deps/src/Rmath-julia-0.2.0/ CFLAGS=-v 
 ```
-:warning: Rmath is needed by Gadfly and thus we pre-installed it to apply fix
+:exclamation: Rmath is needed by Gadfly and thus we pre-installed it to apply fix
 
-
-Then rebuilding the package back in julia
+Rmath was then rebuilt in julia
 
 ```julia
 Pkg.build("Rmath")
-Pkg.add("ScikitLearn")
-Pkg.add("Gadfly")
-
-quit()
 ````
-
-In terminal
-```bash
-cd $JULIA_PKGDIR/v0.6
-cd ScikitLearn
-git checkout master
-cd ..
-cd Gadfly
-git checkout master
-```
-:warning: These packages are updated directly through git and not through Julia's package manager because before checking out the master branch there are dependency conflicts that cause `Pkg.resolve()` to fail. We then have to call `Pkg.update()` to trigger uptades to dependencies
 
 In Julia's REPL
 
 ```julia
-Pkg.update()
-```
-
-```julia
 using BCBI_base
 
-install_all(dirty = Dict("BioMedQuery" => "master")
+install_all()
 check_installed()
 ````
 
@@ -174,4 +158,4 @@ println(BCBI_base.checkout_pkgs)
 
 * The RCall.jl package depends on a working installation of R, which can be obtained [here](https://www.r-project.org/). MacOS users may opt to use [Homebrew](https://brew.sh/) for ease of installation.
 
-* The ScikitLearn.jl package requires a working version of Python and the Scikit-Learn package for Python. The Anaconda distribution of Python is recommended, which can be obtained [here](https://www.continuum.io/downloads).
+* All Python related packages were pointed to the "root environment" Python. Therefore, Scikit-Learn, Seaborn, and others were pre-installed.
