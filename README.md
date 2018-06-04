@@ -25,6 +25,7 @@ For the following packages `Pkg.add()` didn't work out of the box and requiered 
 * ScikitLearn - Tagged version caps DataFrames
 * Gadfly - Tagged version caps DataFrames
 * BioMedQuery - Tagged version uses HTTParse, which is failing
+* Lasso - Tagged version had dependency conflicts
 
 ## How it was used
 
@@ -86,19 +87,19 @@ install_all()
 * Install list of registered packages
 
 ```julia
-add_registered()
+add()
 ```
 
 * Install list of unregistered packages
 
 ```julia
-clone_unregistered()
+clone()
 ```
 
 * Checkout
 
 ```julia
-checkout_special()
+checkout()
 ```
 
 * Missing "desired" packages
@@ -107,37 +108,43 @@ checkout_special()
 check_installed()
 ```
 
+* Check that all packages precompile
+
+```julia
+using_all()
+```
+
 ## List of packages
 
 | Registered | Unregistered | Checkedout (master) |
 |------------|--------------|---------------------|
-|MySQL|ClassImbalance|ScikitLearn|
-|StatsBase|ARules|Gadfly|
+|BioServices|ARules|BioMedQuery|
+|ClassImbalance||Gadfly|
+|Clustering||Lasso|
+|CSV||ScikitLearn|
 |DataFrames|||
-|CSV|||
-|Query|||
-|Clustering|||
 |DecisionTree|||
+|EzXML|||
 |GLM|||
 |GLMNet|||
-|HypothesisTests|||
-|Lasso|||
-|MixedModels|||
-|JuliaDB|||
 |HTTP|||
-|BioServices|||
-|BioMedQuery|||
+|HypothesisTests|||
+|IJulia|||
 |JLD|||
 |JLD2|||
-|EzXML|||
+|JuliaDB|||
 |LightXML|||
-|RCall|||
+|MixedModels|||
+|MySQL|||
+|Pandas|||
 |PyCall|||
 |PyPlot|||
-|Seaborn|||
-|Pandas|||
+|RCall|||
 |Revise|||
-|IJulia|||
+|Seaborn|||
+|StatsBase|||
+|Query|||
+
 
 To print the list of packages installed by this version:
 
@@ -145,8 +152,8 @@ To print the list of packages installed by this version:
 ```julia
 using BCBI_base
 println(BCBI_base.registered_pkgs)
-println(BCBI_base.unregistered_pkgs)
-println(BCBI_base.dirty_pkgs)
+println(BCBI_base.clone_pkgs)
+println(BCBI_base.checkout_pkgs)
 ```
 
 ## Special instances
