@@ -1,31 +1,43 @@
-# BCBI Metapackage BCBI_v0.0.1
+# BCBI Metapackage bcbi_v0.0.0
 
 | Travis CI | Coverage | License |
 |-----------|----------|---------|
-|[![Build Status](https://travis-ci.org/bcbi/BCBI_base.jl.svg?branch=bcbi_v0.0.1)](https://travis-ci.org/bcbi/BCBI_base.jl)|[![codecov.io](http://codecov.io/github/bcbi/BCBI_base.jl/coverage.svg?branch=bcbi_v0.0.1)](http://codecov.io/githubbcbi/BCBI_base.jl?branch=bcbi_v0.0.1)|[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/bcbi/BCBI_base.jl/bcbi_v0.0.1/LICENSE.md)|
+|[![Build Status](https://travis-ci.org/bcbi/BCBI_base.jl.svg?branch=bcbi_v0.0.0)](https://travis-ci.org/bcbi/BCBI_base.jl)|[![codecov.io](http://codecov.io/github/bcbi/BCBI_base.jl/coverage.svg?branch=bcbi_v0.0.0)](http://codecov.io/githubbcbi/BCBI_base.jl?branch=bcbi_v0.0.0)|[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/bcbi/BCBI_base.jl/bcbi_v0.0.0/LICENSE.md)|
 
 This package is a collection of Julia packages used by the Brown Center for Biomedical Informatics (BCBI) inside the Ursa Stronghold environment. The package serves as a mechanism for installing the various Julia packages most frequently used at BCBI.
 
 ## About URSA Environment:
-* Version: bcbi_v0.0.1
-* To activate" `module load conda/bcbi_v0.0.1`
+* Version: bcbi_v0.0.0
+* To activate" `module load conda/bcbi_v0.0.0`
+* [Environment set up details]
 
 ## Installation
 
 ```julia
 Pkg.clone("https://github.com/bcbi/BCBI_base.jl.git")
-Pkg.checkout("BCBI_base", "bcbi_v0.0.1")
+Pkg.checkout("BCBI_base", "bcbi_v0.0.0")
 ```
 
-## Packages that had errors
+## Environment variables
 
-For the following packages `Pkg.add()` didn't work out of the box and requiered workarounds which are mentioned in the following section.
+The following environment variables are exepected in the path. Verify that they ar part on `ENV`. 
+If not they can be set up 'environment' wide or included as part of `.juliarc.jl`
 
-* Rmath - Problem with gcc flags
-* ScikitLearn - Tagged version caps DataFrames
-* Gadfly - Tagged version caps DataFrames
-* BioMedQuery - Tagged version uses HTTParse, which is failing
-* Lasso - Tagged version had dependency conflicts
+
+## Workarounds
+
+1. For the following packages `Pkg.add()` didn't work out of the box and requiered workarounds.
+    * Rmath - Problem with gcc flags. Have to call make manually
+    * ScikitLearn - Tagged version caps DataFrames
+    * Gadfly - Tagged version caps DataFrames
+    * BioMedQuery - Tagged version uses HTTParse, which is failing
+    * Lasso - Tagged version had dependency conflicts
+
+
+2. PyPlot and Seaborn give:`WARNING: No working GUI backend found for matplotlib`
+
+
+
 
 ## How it was used
 
@@ -155,18 +167,6 @@ println(BCBI_base.registered_pkgs)
 println(BCBI_base.clone_pkgs)
 println(BCBI_base.checkout_pkgs)
 ```
-
-## Special instances
-
-1. Currently for two packages  needed to be checkedout to their master branch.
-
-    * ScikitLearn - latest tag v0.4.0, caps DataFrames to version v0.10.1.
-    * Gadfly - latest tag v0.6.5, caps DataFrames to version < v0.11
-
-    This process was done manually through terminal/git. Because Pkg.add() and
-    triggers Pkg.resolve() before being able to checkout the master branch  
-
-2. PyPlot and Seaborn give:`WARNING: No working GUI backend found for matplotlib`
 
 
 ## Other Dependencies
