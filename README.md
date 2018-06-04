@@ -17,12 +17,34 @@ Pkg.clone("https://github.com/bcbi/BCBI_base.jl.git")
 Pkg.checkout("BCBI_base", "bcbi_v0.0.1")
 ```
 
+## Packages that had errors
+
+For the following packages `Pkg.add()` didn't work out of the box and requiered workarounds which are mentioned in the following section.
+
+* Rmath - Problem with gcc flags
+* ScikitLearn - Tagged version caps DataFrames
+* Gadfly - Tagged version caps DataFrames
+* BioMedQuery - Tagged version uses HTTParse, which is failing
+
 ## How it was used
 
 In Julia's REPL
 ```julia
 using BCBI_base
+Pkg.add("Rmath")
+```
 
+:warning: Building Rmath failed but was fixed by running:
+```bash
+make -C $(JULIA_PKGDIR)/v0.6/Rmath/deps/src/Rmath-julia-0.2.0/ CFLAGS=-v 
+```
+:warning: Rmath is needed by Gadfly and thus we pre-installed it to apply fix
+
+
+Then rebuilding the package back in julia
+
+```julia
+Pkg.build("Rmath")
 Pkg.add("ScikitLearn")
 Pkg.add("Gadfly")
 
@@ -38,13 +60,18 @@ cd ..
 cd Gadfly
 git checkout master
 ```
+:warning: These packages are updated directly through git and not through Julia's package manager because before checking out the master branch there are dependency conflicts that cause `Pkg.resolve()` to fail. We then have to call `Pkg.update()` to trigger uptades to dependencies
 
 In Julia's REPL
 
 ```julia
+Pkg.update()
+```
+
+```julia
 using BCBI_base
 
-install_all(dirty = Dict())
+install_all(dirty = Dict("BioMedQuery" => "master")
 check_installed()
 ````
 

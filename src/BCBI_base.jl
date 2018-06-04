@@ -4,7 +4,8 @@ export install_all,
        add_registered,
        clone_unregistered,
        checkout_special,
-       check_installed
+       check_installed,
+       using_all
 
 const registered_pkgs = [   "MySQL",
                             "StatsBase",
@@ -21,7 +22,6 @@ const registered_pkgs = [   "MySQL",
                             "JuliaDB",
                             "HTTP",
                             "BioServices",
-                            "BioMedQuery",
                             "JLD",
                             "JLD2",
                             "EzXML",
@@ -39,7 +39,8 @@ const unregistered_pkgs =Dict("ARules"=>"https://github.com/bcbi/ARules.jl")
 
 
 const dirty_pkgs = Dict("ScikitLearn" => "master",
-                        "Gadfly" => "master")
+                        "Gadfly" => "master",
+                        "BioMedQuery" => "master")
 
 """
     add_registered(pkgs = BCBI_base.registered_pkgs)
@@ -192,6 +193,28 @@ function check_installed()
     miss_pkgs = setdiff(desired, installed)
     println(miss_pkgs)
     miss_pkgs
+end
+
+"""
+    using_all()
+Run `using` an all lists of packages
+"""
+function using_all()
+    desired = vcat(registered_pkgs, collect(keys(unregistered_pkgs)), collect(keys(dirty_pkgs)))
+    failed_pkgs = Vector{String}()
+    for pkg in desired
+        try
+            pkgsym = Symbol(pkg)
+            eval(:(using $pkgsym))
+        catch
+            warn("using pkg failed")
+            push!(failed_pkgs, pkg)
+        end
+    end
+    println("--------------------------------")
+    println("Failed packages: ", length(failed_pkgs))
+    map(x->println(x), failed_pkgs)
+    println("--------------------------------")
 end
 
 end
