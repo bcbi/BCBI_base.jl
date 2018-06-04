@@ -43,7 +43,7 @@ export CONDA_JL_HOME = /opt/browncis/conda/envs/$CONDA_DEFAULT_ENV/lib/julia/pac
 2. PyPlot and Seaborn give:`WARNING: No working GUI backend found for matplotlib`
 
 
-## How it was used
+## How it was used in the build server
 
 In Julia's REPL
 ```julia
@@ -159,3 +159,18 @@ println(BCBI_base.checkout_pkgs)
 * The RCall.jl package depends on a working installation of R, which can be obtained [here](https://www.r-project.org/). MacOS users may opt to use [Homebrew](https://brew.sh/) for ease of installation.
 
 * All Python related packages were pointed to the "root environment" Python. Therefore, Scikit-Learn, Seaborn, and others were pre-installed.
+
+
+## How it was used in the work station
+
+```
+module load conda/bcbi_v0.0.0
+julia
+```
+
+```julia
+using BCBI_base
+using_all()
+```
+
+:pray: that it all works
