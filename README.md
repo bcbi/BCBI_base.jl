@@ -8,7 +8,7 @@ This package is a collection of Julia packages used by the Brown Center for Biom
 
 ## About URSA Environment:
 * Version: bcbi_v0.0.0
-* To activate" `module load conda/bcbi_v0.0.0`
+* To activate `module load conda/bcbi_v0.0.0`
 * [Environment set up details](https://github.com/brown-data-science/stronghold_environments/blob/master/bcbi_v0.0.0.md)
 
 ## Installation
