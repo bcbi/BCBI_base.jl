@@ -154,7 +154,7 @@ To print the list of packages installed by this version:
 
 ```julia
 using BCBI_base
-println(BCBI_base.registered_pkgs)
+println(BCBI_base.base_pkgs)
 println(BCBI_base.clone_pkgs)
 println(BCBI_base.checkout_pkgs)
 ```

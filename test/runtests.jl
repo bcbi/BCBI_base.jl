@@ -5,7 +5,7 @@ using BCBI_base
     BCBI_base.add()
     failed_pkgs = Vector{String}()
 
-    for pkg in BCBI_base.registered_pkgs
+    for pkg in BCBI_base.base_pkgs
         println("--------------------------------")
         println("Package: ", pkg)
         println("--------------------------------")

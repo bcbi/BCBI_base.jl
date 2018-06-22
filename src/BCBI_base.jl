@@ -4,6 +4,12 @@ export install_all,
        check_installed,
        using_all
 
+const plotting_pkgs = [ "VegaLite", "PGFPlotsX", "PlotlyJS"]
+
+const datasets_pkg = ["RDatasets", "VegaDatasets"]
+
+const external_pkgs = ["RCall", "PyCall", "Pandas", "PyPlot", "Seaborn"]
+
 const predictmd_extra_deps = [  "Atom",
                                 "BenchmarkTools",
                                 "CSVFiles",
@@ -14,7 +20,6 @@ const predictmd_extra_deps = [  "Atom",
                                 "GLM",
                                 "GPUArrays",
                                 "Knet",
-                                "LIBSVM",
                                 "Literate",
                                 "MLBase",
                                 "MLDatasets",
@@ -25,38 +30,35 @@ const predictmd_extra_deps = [  "Atom",
                                 "PGFPlotsX",
                                 "ProgressMeter",
                                 "RDatasets",
-                                "ROCAnalysis",
                                 "Requires",
                                 "ValueHistories",
                                 "Weave"]
                                 
-const registered_pkgs = [   "MySQL",
-                            "StatsBase",
-                            "DataFrames",
-                            "CSV",
-                            "Query",
-                            "Clustering",
-                            "DecisionTree",
-                            "GLM",
-                            "GLMNet",
-                            "HypothesisTests",
-                            "Lasso",
-                            "MixedModels",
-                            "JuliaDB",
-                            "HTTP",
-                            "BioServices",
-                            "JLD",
-                            "JLD2",
-                            "EzXML",
-                            "LightXML",
-                            "RCall",
-                            "PyCall",
-                            "PyPlot", #get WARNING: No working GUI backend found for matplotlib
-                            "Seaborn",
-                            "Pandas",
-                            "Revise",
-                            "IJulia",
-                            "ClassImbalance"]
+const base_pkgs = [ "MySQL",
+                    "BioServices",
+                    "ClassImbalance",
+                    "Clustering",
+                    "CSV",
+                    "DataFrames",
+                    "DecisionTree",
+                    "EzXML",
+                    "GLM",
+                    "GLMNet",
+                    "HTTP",
+                    "HypothesisTests",
+                    "IJulia",
+                    "JLD",
+                    "JLD2",
+                    "JuliaDB",
+                    "Lasso",
+                    "LIBSVM",
+                    "LightXML",
+                    "MixedModels",
+                    "Revise",
+                    "ROCAnalysis",
+                    "StatsBase",
+                    "Query"
+                    ]
 
 """ 
     clone_pkgs
@@ -69,7 +71,8 @@ const clone_pkgs =Dict("ARules"=>"https://github.com/bcbi/ARules.jl",
                        "ScikitLearn"=>"https://github.com/cstjean/ScikitLearn.jl.git",
                        "Gadfly"=>"https://github.com/GiovineItalia/Gadfly.jl.git",
                        "BioMedQuery"=>"https://github.com/bcbi/BioMedQuery.jl.git",
-                       "Lasso"=>"https://github.com/simonster/Lasso.jl.git")
+                       "Lasso"=>"https://github.com/simonster/Lasso.jl.git",
+                       "PredictMD"=>"https://github.com/bcbi/PredictMD.jl")
 
 """
     checkout_pkgs
@@ -79,11 +82,11 @@ const checkout_pkgs=Dict()
 
 
 """
-    add(pkgs = BCBI_base.registered_pkgs)
+    add(pkgs = BCBI_base.base_pkgs)
 
 Call `Pkg.add` and `using` on list of desired packages
 """
-function add(pkgs = BCBI_base.registered_pkgs)
+function add(pkgs = BCBI_base.base_pkgs)
 
     Pkg.update()
 
@@ -212,7 +215,10 @@ Run checkout/add/clone functions
 """
 function install_all()
     checkout(checkout_pkgs)
-    add(registered_pkgs)
+    add(base_pkgs)
+    add(plotting_pkgs)
+    add(datasets_pkg)
+    add(external_pkgs)
     clone(clone_pkgs)
 end
 
@@ -221,7 +227,7 @@ end
 Print and return list of missing "desired" packages
 """
 function check_installed()
-    desired = vcat(registered_pkgs, collect(keys(clone_pkgs)), collect(keys(checkout_pkgs)))
+    desired = vcat(base_pkgs, plotting_pkgs, external_pkgs, datasets_pkg, collect(keys(clone_pkgs)), collect(keys(checkout_pkgs)))
     installed = collect(keys(Pkg.installed()))
     println("--------------------------------")
     println("Missing desired packages:")
@@ -236,7 +242,7 @@ end
 Run `using` an all lists of packages
 """
 function using_all()
-    desired = vcat(registered_pkgs, collect(keys(clone_pkgs)), collect(keys(checkout_pkgs)))
+    desired = vcat(base_pkgs, plotting_pkgs, external_pkgs, datasets_pkg, collect(keys(clone_pkgs)), collect(keys(checkout_pkgs)))
     failed_pkgs = Vector{String}()
     for pkg in desired
         try
