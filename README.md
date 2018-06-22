@@ -13,6 +13,10 @@ This package is a collection of Julia packages used by the Brown Center for Biom
 Pkg.clone("https://github.com/bcbi/BCBI_base.jl.git")
 ```
 
+## URSA/STRONGHOLD
+
+See [instructions](https://github.com/bcbi/BCBI_base.jl/blob/master/STRONGHOLD.md)
+
 ## General Usage
 
 * Install all packages
