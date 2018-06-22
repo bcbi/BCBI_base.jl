@@ -4,7 +4,7 @@
 |-----------|----------|---------|
 |[![Build Status](https://travis-ci.org/bcbi/BCBI_base.jl.svg?branch=master)](https://travis-ci.org/bcbi/BCBI_base.jl)|[![codecov.io](http://codecov.io/github/bcbi/BCBI_base.jl/coverage.svg?branch=master)](http://codecov.io/githubbcbi/BCBI_base.jl?branch=master)|[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/bcbi/BCBI_base.jl/bcbi_v0.0.0/LICENSE.md)|
 
-This package is a collection of Julia packages used by the Brown Center for Biomedical Informatics (BCBI) inside the Ursa Stronghold environment. The package serves as a mechanism for installing the various Julia packages most frequently used at BCBI.
+This package is a collection of Julia packages used by the Brown Center for Biomedical Informatics (BCBI). The package serves as a mechanism for installing the various Julia packages most frequently used at BCBI.
 
 
 ## Installation
