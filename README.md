@@ -19,6 +19,12 @@ See [instructions](https://github.com/bcbi/BCBI_base.jl/blob/master/STRONGHOLD.m
 
 ## General Usage
 
+* Import package
+
+```julia
+using BCBI_base
+```
+
 * Install all packages
 
 ```julia
@@ -28,19 +34,19 @@ install_all()
 * Install list of registered packages
 
 ```julia
-add()
+BCBI_base.add()
 ```
 
 * Install list of unregistered packages
 
 ```julia
-clone()
+BCBI_base.clone()
 ```
 
 * Checkout
 
 ```julia
-checkout()
+BCBI_base.checkout()
 ```
 
 * Missing "desired" packages
