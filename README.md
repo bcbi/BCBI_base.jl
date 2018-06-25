@@ -27,6 +27,17 @@ using BCBI_base
 
 * Install all packages
 
+One set at a time
+```julia
+BCBI_base.add(BCBI_base.base_pkgs)
+BCBI_base.add(BCBI_base.plotting_pkgs)
+BCBI_base.add(BCBI_base.datasets_pkg)
+BCBI_base.add(BCBI_base.external_pkgs)
+BCBI_base.clone(BCBI_base.clone_pkgs)
+BCBI_base.checkout(BCBI_base.checkout_pkgs)
+```
+
+Alternatively, if you are confident things won't fail
 ```julia
 install_all()
 ````
@@ -49,7 +60,7 @@ BCBI_base.clone()
 BCBI_base.checkout()
 ```
 
-* Missing "desired" packages
+* Get list of missing "desired" packages
 
 ```julia
 check_installed()
@@ -63,34 +74,33 @@ using_all()
 
 ## List of packages
 
-| Registered | Unregistered | Checkedout (master) |
-|------------|--------------|---------------------|
-|BioServices|ARules|BioMedQuery|
-|ClassImbalance||Gadfly|
-|Clustering||Lasso|
-|CSV||ScikitLearn|
-|DataFrames|||
-|DecisionTree|||
-|EzXML|||
-|GLM|||
-|GLMNet|||
-|HTTP|||
-|HypothesisTests|||
-|IJulia|||
-|JLD|||
-|JLD2|||
-|JuliaDB|||
-|LightXML|||
-|MixedModels|||
-|MySQL|||
-|Pandas|||
-|PyCall|||
-|PyPlot|||
-|RCall|||
-|Revise|||
-|Seaborn|||
-|StatsBase|||
-|Query|||
+| Base | Plotting | DataSets | R/Python | Cloned
+|------------|--------------|---------------------|---------------------|---------------------|
+|MySQL|PGFPlotsX|RDataSets|RCall|ARules=>https://github.com/bcbi/ARules.jl|
+|BioServices|PlotlyJS|VegaDatasets|PyCall|ScikitLearn=>https://github.com/cstjean/ScikitLearn.jl.git|
+|ClassImbalance|||Pandas|Gadfly=>https://github.com/GiovineItalia/Gadfly.jl.git|
+|Clustering|||Pandas|BioMedQuery=>https://github.com/bcbi/BioMedQuery.jl.git|
+|Compat|||Seaborn|Lasso=>https://github.com/simonster/Lasso.jl.git|
+|CSV||||PredictMD=>https://github.com/bcbi/PredictMD.jl|
+|DataFrames|||||
+|DecisionTree|||||
+|EzXML|||||
+|GLM|||||
+|GLMNet|||||
+|HTTP|||||
+|HypothesisTests|||||
+|IJulia|||||
+|JLD|||||
+|JLD2|||||
+|JuliaDB|||||
+|Lasso|||||
+|LIBSVM|||||
+|LightXML|||||
+|MixedModels|||||
+|Revise|||||
+|ROCAnalysis|||||
+|StatsBase|||||
+|Query|||||
 
 
 To print the list of packages installed by this version:
@@ -98,7 +108,10 @@ To print the list of packages installed by this version:
 
 ```julia
 using BCBI_base
-println(BCBI_base.registered_pkgs)
+println(BCBI_base.base_pkgs)
+println(BCBI_base.plotting_pkgs)
+println(BCBI_base.external_pkgs)
+println(BCBI_base.datasets_pkgs)
 println(BCBI_base.clone_pkgs)
 println(BCBI_base.checkout_pkgs)
 ```
