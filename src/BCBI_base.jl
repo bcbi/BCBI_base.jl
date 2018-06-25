@@ -79,7 +79,7 @@ const clone_pkgs =Dict("ARules"=>"https://github.com/bcbi/ARules.jl",
     checkout_pkgs
 Dictionary of package name to brach
 """
-const checkout_pkgs=Dict()
+const checkout_pkgs=Dict("PredictMD"=>"master")
 
 
 """
@@ -215,12 +215,13 @@ end
 Run checkout/add/clone functions
 """
 function install_all()
-    checkout(checkout_pkgs)
     add(base_pkgs)
     add(plotting_pkgs)
     add(datasets_pkg)
     add(external_pkgs)
     clone(clone_pkgs)
+    checkout(checkout_pkgs)
+
 end
 
 """
