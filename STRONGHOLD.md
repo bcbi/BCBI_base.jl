@@ -5,7 +5,7 @@
 
 ## How it was installed in stronghold build server
 
-Only available to maintainers: [Private repo with environment set up details](https://github.com/brown-data-science/stronghold_environments/blob/master/bcbi_v0.0.1.md)
+Maintainers: [See environment set up details](https://github.com/brown-data-science/stronghold_environments/blob/master/bcbi_v0.0.1.md)
 
 
 ## How to use in stronghold ursa work station
