@@ -1,82 +1,33 @@
 using Base.Test
 using BCBI_base
 
-@testset "Add" begin
-    BCBI_base.add()
-    failed_pkgs = Vector{String}()
-
-    for pkg in BCBI_base.base_pkgs
-        println("--------------------------------")
-        println("Package: ", pkg)
-        println("--------------------------------")
-        try
-            pkgsym = Symbol(pkg)
-            eval(:(using $pkgsym))
-        catch
-            warn("using pkg failed")
-            push!(failed_pkgs, pkg)
-        end
-    end
-
-    println("--------------------------------")
-    println("Failed packages: ")
-    map(x->println(x), failed_pkgs)
-    println("--------------------------------")
-
-    @test length(failed_pkgs) == 0
-end
-
-@testset "Clone" begin
-    BCBI_base.clone()
-    failed_pkgs = Vector{String}()
-
-    for (pkg, url) in BCBI_base.clone_pkgs
-        println("--------------------------------")
-        println("Package: ", pkg)
-        println("--------------------------------")
-        try
-            pkgsym = Symbol(pkg)
-            eval(:(using $pkgsym))
-        catch
-            warn("using pkg failed")
-            push!(failed_pkgs, pkg)
-        end
-    end
-
-    println("--------------------------------")
-    println("Failed packages: ")
-    map(x->println(x), failed_pkgs)
-    println("--------------------------------")
-
-    @test length(failed_pkgs) == 0
-end
-warn("Not running tests on checkout()")
-
-@testset "Checkout" begin
-    BCBI_base.checkout()
-    failed_pkgs = Vector{String}()
-
-    for (pkg, url) in BCBI_base.checkout_pkgs
-        println("--------------------------------")
-        println("Package: ", pkg)
-        println("--------------------------------")
-        try
-            pkgsym = Symbol(pkg)
-            eval(:(using $pkgsym))
-        catch
-            warn("using pkg failed")
-            push!(failed_pkgs, pkg)
-        end
-    end
-
-    println("--------------------------------")
-    println("Failed packages: ")
-    map(x->println(x), failed_pkgs)
-    println("--------------------------------")
-
-    @test length(failed_pkgs) == 0
-end
-
+println("--------------------------------")
+println("Testin Base Pkgs")
+println("--------------------------------")
+@test length(BCBI_base.add(BCBI_base.base_pkgs)) == 0
+println("--------------------------------")
+println("Testing Plotting Pkgs")
+println("--------------------------------")
+@test length(BCBI_base.add(BCBI_base.plotting_pkgs)) == 0
+println("--------------------------------")
+println("Testing Datasets Pkgs")
+println("--------------------------------")
+@test length(BCBI_base.add(BCBI_base.datasets_pkg)) == 0
+println("--------------------------------")
+println("Testing Python/R Pkgs")
+println("--------------------------------")
+@test length(BCBI_base.add(BCBI_base.external_pkgs)) == 0
+println("--------------------------------")
+println("Testing Clone Pkgs")
+println("--------------------------------")
+@test length(BCBI_base.clone(BCBI_base.clone_pkgs)) == 0
+println("--------------------------------")
+println("Testing Checkout Pkgs")
+println("--------------------------------")
+@test length(BCBI_base.checkout(BCBI_base.checkout_pkgs)) == 0
+println("--------------------------------")
+println("Testing Installed Pkgs")
+println("--------------------------------")
 @test length(check_installed()) == 2
 
 #Printout for reference

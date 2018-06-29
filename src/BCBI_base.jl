@@ -124,6 +124,8 @@ function add(pkgs = BCBI_base.base_pkgs)
     println("Failed packages: ", length(failed_pkgs))
     map(x->println(x), failed_pkgs)
     println("--------------------------------")
+
+    return failed_pkgs
 end
 
 """
@@ -168,6 +170,8 @@ function clone(pkgs = BCBI_base.clone_pkgs)
     println("Failed packages: ", length(failed_pkgs))
     map(x->println(x), failed_pkgs)
     println("--------------------------------")
+
+    return failed_pkgs
 end
 
 """
@@ -208,6 +212,8 @@ function checkout(pkgs = BCBI_base.checkout_pkgs)
     println("Failed packages: ", length(failed_pkgs))
     map(x->println(x), failed_pkgs)
     println("--------------------------------")
+
+    return failed_pkgs
 end
 
 """
@@ -221,7 +227,6 @@ function install_all()
     add(external_pkgs)
     clone(clone_pkgs)
     checkout(checkout_pkgs)
-
 end
 
 """
