@@ -30,7 +30,7 @@ using BCBI_base
     println("Precompiling Installed Pkgs")
     println("--------------------------------")
     @test length(using_all()) == 0
-    clean_up()
+    BCBI_base.clean_up()
     @test check_installed() == 0
 end
 
