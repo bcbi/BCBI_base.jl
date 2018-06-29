@@ -4,7 +4,7 @@ export install_all,
        check_installed,
        using_all
 
-const plotting_pkgs = [ "VegaLite", "PGFPlotsX", "PlotlyJS"]
+const plotting_pkgs = [ "VegaLite", "PGFPlotsX", "PlotlyJS", "Gadfly"]
 
 const datasets_pkg = ["RDatasets", "VegaDatasets"]
 
@@ -70,7 +70,6 @@ if the lates tagged version cannot be resoved
 """                            
 const clone_pkgs =Dict("ARules"=>"https://github.com/bcbi/ARules.jl",
                        "ScikitLearn"=>"https://github.com/cstjean/ScikitLearn.jl.git",
-                       "Gadfly"=>"https://github.com/GiovineItalia/Gadfly.jl.git",
                        "BioMedQuery"=>"https://github.com/bcbi/BioMedQuery.jl.git",
                        "Lasso"=>"https://github.com/simonster/Lasso.jl.git",
                        "PredictMD"=>"https://github.com/bcbi/PredictMD.jl")
