@@ -78,13 +78,47 @@ Dictionary of package name to brach
 """
 const checkout_pkgs=Dict("PredictMD"=>"master")
 
-
 """
     add(pkgs = BCBI_base.base_pkgs)
 
 Call `Pkg.add` and `using` on list of desired packages
 """
 function add(pkgs = BCBI_base.base_pkgs)
+
+    Pkg.update()
+
+    failed_pkgs = Vector{String}()
+
+    for pkg in pkgs
+        println("--------------------------------")
+        println("Package: ", pkg)
+        println("--------------------------------")
+
+        try
+            println("* Adding")
+            Pkg.add(pkg)
+        catch
+            warn("Pkg.add failed")
+            push!(failed_pkgs, pkg)
+            continue
+        end
+
+    end
+
+    println("--------------------------------")
+    println("Failed packages: ", length(failed_pkgs))
+    map(x->println(x), failed_pkgs)
+    println("--------------------------------")
+
+    return failed_pkgs
+end
+
+"""
+    add_and_precompile(pkgs = BCBI_base.base_pkgs)
+
+Call `Pkg.add` and `using` on list of desired packages
+"""
+function add_and_precompile(pkgs = BCBI_base.base_pkgs)
 
     Pkg.update()
 
@@ -139,6 +173,41 @@ function clone(pkgs = BCBI_base.clone_pkgs)
         println("Package: ", pkg)
         println("--------------------------------")
 
+        try
+            v = Pkg.installed(pkg)
+            if typeof(v) != VersionNumber
+                println("* Clonning")
+                Pkg.clone(url)
+            end
+        catch
+            println("* Clonning")
+            Pkg.clone(url)
+        end
+
+    end
+
+    println("--------------------------------")
+    println("Failed packages: ", length(failed_pkgs))
+    map(x->println(x), failed_pkgs)
+    println("--------------------------------")
+
+    return failed_pkgs
+end
+
+"""
+    clone_and_precompile(pkgs = BCBI_base.clone_pkgs)
+
+Call `Pkg.clone` and `using` on `Dict("name"->"url")` of desired packages
+"""
+function clone_and_precompile(pkgs = BCBI_base.clone_pkgs)
+
+    failed_pkgs = Vector{String}()
+
+    for (pkg, url) in pkgs
+        println("--------------------------------")
+        println("Package: ", pkg)
+        println("--------------------------------")
+
 
         try
             v = Pkg.installed(pkg)
@@ -174,27 +243,51 @@ end
 """
     checkout(pkgs = Dict())
 
-Call `Pkg.add`, `Pkg.checkout` and `using` on `Dict("name"->"branch")` of desired packages
+Call `Pkg.checkout` and `using` on `Dict("name"->"branch")` of desired packages. It assumes that 
+package is already added
 """
 function checkout(pkgs = BCBI_base.checkout_pkgs)
+    
     failed_pkgs = Vector{String}()
 
     for (pkg, branch) in pkgs
         println("--------------------------------")
         println("Package: ", pkg)
         println("--------------------------------")
-        println("* Add ")
-        Pkg.add(pkg)
+        println("* Checkout ", branch)
+
+        try
+            Pkg.checkout(pkg, branch)
+        catch
+            warn("checking out branch failed")
+            push!(failed_pkgs, pkg)
+        end
     end
+
+    println("--------------------------------")
+    println("Failed packages: ", length(failed_pkgs))
+    map(x->println(x), failed_pkgs)
+    println("--------------------------------")
+
+    return failed_pkgs
+end
+
+"""
+checkout_and_precompile(pkgs = Dict())
+
+Call `Pkg.checkout` and `using` on `Dict("name"->"branch")` of desired packages. It assumes that 
+package is already added
+"""
+function checkout_and_precompile(pkgs = BCBI_base.checkout_pkgs)
+    failed_pkgs = Vector{String}()
 
     for (pkg, branch) in pkgs
         println("--------------------------------")
         println("Package: ", pkg)
         println("--------------------------------")
         println("* Checkout ", branch)
-        Pkg.checkout(pkg, branch)
-
         try
+            Pkg.checkout(pkg, branch)
             println("* Using")
             pkgsym = Symbol(pkg)
             eval(:(using $pkgsym))
@@ -238,7 +331,8 @@ function check_installed()
     println("--------------------------------")
     miss_pkgs = setdiff(desired, installed)
     println(miss_pkgs)
-    miss_pkgs
+
+    return miss_pkgs
 end
 
 """
@@ -261,6 +355,22 @@ function using_all()
     println("Failed packages: ", length(failed_pkgs))
     map(x->println(x), failed_pkgs)
     println("--------------------------------")
+    
+    return failed_pkgs
+end
+
+"""
+    clean_up_failing()
+Removes packages that fail to precompile
+"""
+function clean_up()
+    failed_pkgs = using_all()
+    for pkg in failed_pkgs
+        println("--------------------------------")
+        println("Removing package: ", pkg)
+        println("--------------------------------")
+        Pkg.rm(pkg)
+    end
 end
 
 end
