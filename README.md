@@ -21,9 +21,9 @@ See [instructions](https://github.com/bcbi/BCBI_base.jl/blob/master/STRONGHOLD.m
 
 * Import package
 
-```julia
-using BCBI_base
-```
+    ```julia
+    using BCBI_base
+    ```
 
 * Install all packages
 
