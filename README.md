@@ -27,40 +27,40 @@ using BCBI_base
 
 * Install all packages
 
-One set at a time
-```julia
-BCBI_base.add(BCBI_base.base_pkgs)
-BCBI_base.add(BCBI_base.plotting_pkgs)
-BCBI_base.add(BCBI_base.datasets_pkg)
-BCBI_base.add(BCBI_base.external_pkgs)
-BCBI_base.clone(BCBI_base.clone_pkgs)
-BCBI_base.checkout(BCBI_base.checkout_pkgs)
-```
+    One set at a time
+    ```julia
+    BCBI_base.add(BCBI_base.base_pkgs)
+    BCBI_base.add(BCBI_base.plotting_pkgs)
+    BCBI_base.add(BCBI_base.datasets_pkg)
+    BCBI_base.add(BCBI_base.external_pkgs)
+    BCBI_base.clone(BCBI_base.clone_pkgs)
+    BCBI_base.checkout(BCBI_base.checkout_pkgs)
+    ```
 
-Alternatively, if you are confident things won't fail
-```julia
-install_all()
-````
+    Alternatively, if you are confident things won't fail
+    ```julia
+    install_all()
+    ````
 
 * Check that installed packages precompile correctly
 
-It is best to call this from a new/fresh julia session
+    It is best to call this from a new/fresh julia session
 
-```julia
-using_all()
-```
+    ```julia
+    using_all()
+    ```
 
 * Remove packages that are not working (recommended)
 
-```julia
-BCBI_base.clean_up()
-```
+    ```julia
+    BCBI_base.clean_up()
+    ```
 
 * Get list of missing "desired" packages
 
-```julia
-check_installed()
-```
+    ```julia
+    check_installed()
+    ```
 
 ## List of packages
 
@@ -93,21 +93,22 @@ check_installed()
 |Query|||||
 
 
-To print the list of packages installed by this version:
+* To print the list of packages installed by this version:
 
 
-```julia
-using BCBI_base
-println(BCBI_base.base_pkgs)
-println(BCBI_base.plotting_pkgs)
-println(BCBI_base.external_pkgs)
-println(BCBI_base.datasets_pkgs)
-println(BCBI_base.clone_pkgs)
-println(BCBI_base.checkout_pkgs)
-```
+    ```julia
+    using BCBI_base
+    println(BCBI_base.base_pkgs)
+    println(BCBI_base.plotting_pkgs)
+    println(BCBI_base.external_pkgs)
+    println(BCBI_base.datasets_pkgs)
+    println(BCBI_base.clone_pkgs)
+    println(BCBI_base.checkout_pkgs)
+    ```
 
 
 ## Other Dependencies
+
 * The MySQL.jl package depends on a working MySQL installation; instructions can be obtained [here](https://dev.mysql.com/doc/refman/5.7/en/installing.html). For simplicity, macOS users may prefer to install MySQL using [Homebrew](https://brew.sh/).
 
 * The RCall.jl package depends on a working installation of R, which can be obtained [here](https://www.r-project.org/). MacOS users may opt to use [Homebrew](https://brew.sh/) for ease of installation.
