@@ -42,34 +42,24 @@ Alternatively, if you are confident things won't fail
 install_all()
 ````
 
-* Install list of registered packages
+* Check that installed packages precompile correctly
+
+It is best to call this from a new/fresh julia session
 
 ```julia
-BCBI_base.add()
+using_all()
 ```
 
-* Install list of unregistered packages
+* Remove packages that are not working (recommended)
 
 ```julia
-BCBI_base.clone()
-```
-
-* Checkout
-
-```julia
-BCBI_base.checkout()
+BCBI_base.clean_up()
 ```
 
 * Get list of missing "desired" packages
 
 ```julia
 check_installed()
-```
-
-* Check that all packages precompile
-
-```julia
-using_all()
 ```
 
 ## List of packages
