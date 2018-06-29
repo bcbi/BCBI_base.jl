@@ -10,6 +10,8 @@ const datasets_pkg = ["RDatasets", "VegaDatasets"]
 
 const external_pkgs = ["RCall", "PyCall", "Pandas", "PyPlot", "Seaborn"]
 
+const problematic_pkgs = ["GLMNet", "EzXML", "Lasso"]
+
 const predictmd_extra_deps = [  "Atom",
                                 "BenchmarkTools",
                                 "CSVFiles",
@@ -42,16 +44,13 @@ const base_pkgs = [ "MySQL",
                     "CSV",
                     "DataFrames",
                     "DecisionTree",
-                    "EzXML",
                     "GLM",
-                    "GLMNet",
                     "HTTP",
                     "HypothesisTests",
                     "IJulia",
                     "JLD",
                     "JLD2",
                     "JuliaDB",
-                    "Lasso",
                     "LIBSVM",
                     "LightXML",
                     "MixedModels",
@@ -71,7 +70,6 @@ if the lates tagged version cannot be resoved
 const clone_pkgs =Dict("ARules"=>"https://github.com/bcbi/ARules.jl",
                        "ScikitLearn"=>"https://github.com/cstjean/ScikitLearn.jl.git",
                        "BioMedQuery"=>"https://github.com/bcbi/BioMedQuery.jl.git",
-                       "Lasso"=>"https://github.com/simonster/Lasso.jl.git",
                        "PredictMD"=>"https://github.com/bcbi/PredictMD.jl")
 
 """
