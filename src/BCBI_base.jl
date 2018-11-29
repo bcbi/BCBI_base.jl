@@ -1,5 +1,7 @@
 module BCBI_base
 
+using Pkg
+
 export install_all,
        check_installed,
        using_all
